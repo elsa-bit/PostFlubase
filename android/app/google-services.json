@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1081216318895",
+    "project_id": "postflubase",
+    "storage_bucket": "postflubase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081216318895:android:3c7ef7ee7f3f9e4da9835a",
+        "android_client_info": {
+          "package_name": "com.example.app_post"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081216318895-c2hk97su3n41372v9h9odubm6egooh36.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY_hgl4r0egbNuAaYJdi-ZL-CcEKStr4U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081216318895-c2hk97su3n41372v9h9odubm6egooh36.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1081216318895-gnv5umhql36uou5m2bqnve28nr01hcos.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.appPost"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
