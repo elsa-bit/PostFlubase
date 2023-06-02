@@ -1,11 +1,15 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:app_post/data_sources/api_posts_data_source.dart';
+import 'package:app_post/models/post.dart';
+import 'package:app_post/repository/posts_repository.dart';
+import 'package:app_post/screen/post_detail_screen.dart';
+import 'package:app_post/screen/post_list_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:app_post/analytics_provider.dart';
 import 'package:app_post/firebase_analytics_handler.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -33,94 +37,41 @@ class MyApp extends StatelessWidget {
       handlers: [
         FirebaseAnalyticsHandler(),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Post Flubase',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      child: RepositoryProvider(
+        create: (context) => PostsRepository(
+          remoteDataSource: ApiPostsDataSource(),
         ),
-        home: const MyHomePage(title: 'Post Flubase'),
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _init());
-  }
-
-  void _init() async {
-
-  }
-
-  void _crash() async {
-    try {
-      throw Exception('Ce crash est géré');
-    } catch (error, stackTrace) {
-      await FirebaseCrashlytics.instance.recordError(error, stackTrace);
-    }
-  }
-
-  void _addPost() async {
-
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            textTheme: const TextTheme(
+              bodySmall: TextStyle(
+                fontSize: 20,
+                color: Colors.orange,
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+          ),
+          routes: {
+            '/': (context) => const HomeScreen(),
+          },
+          onGenerateRoute: (settings) {
+            Widget content = const SizedBox.shrink();
+            switch (settings.name) {
+              case PostDetailScreen.routeName:
+                final arguments = settings.arguments;
+                if (arguments is Post) {
+                  content = PostDetailScreen(post: arguments);
+                }
+                break;
+            }
+
+            return MaterialPageRoute(
+              builder: (context) {
+                return content;
+              },
+            );
+          },
         ),
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: () {  },
-            child: const Icon(Icons.cloud),
-            backgroundColor: Colors.grey,
-          ),
-          SizedBox(height: 18),
-          FloatingActionButton(
-            onPressed: _addPost,
-            tooltip: 'Add post',
-            child: const Icon(Icons.add),
-          ),
-          SizedBox(height: 18),
-          FloatingActionButton(
-            onPressed: _crash,
-            tooltip: 'Crash',
-            child: const Icon(Icons.car_crash),
-            backgroundColor: Colors.redAccent,
-          ),
-        ],
       ),
     );
   }
