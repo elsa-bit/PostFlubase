@@ -4,6 +4,7 @@ enum PostsStatus {
   initial,
   loading,
   success,
+  editSuccess,
   error,
 }
 
