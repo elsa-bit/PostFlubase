@@ -1,11 +1,8 @@
-import 'package:app_post/AddPostIcon.dart';
 import 'package:app_post/models/post.dart';
 import 'package:app_post/post_item.dart';
 import 'package:app_post/posts_bloc/posts_bloc.dart';
-import 'package:app_post/repository/posts_repository.dart';
 import 'package:app_post/screen/post_add_screen.dart';
 import 'package:app_post/screen/post_detail_screen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,14 +24,6 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Posts'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: AddPostIcon(
-              onTap: () => _navigateToAddPostScreen(context),
-            ),
-          ),
-        ],
       ),
       body: BlocBuilder<PostsBloc, PostsState>(
         builder: (context, state) {
@@ -70,20 +59,21 @@ class HomeScreen extends StatelessWidget {
           }
         },
       ),
-      /*
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: _crash,
-            tooltip: 'Crash',
-            child: const Icon(Icons.warning),
-            backgroundColor: Colors.redAccent,
-            heroTag: 'crashButton',
+            onPressed: () => _navigateToAddPostScreen(context),
+            tooltip: 'Add Post',
+            backgroundColor: Colors.pinkAccent,
+            heroTag: 'addButton',
+            child: const Icon(
+              Icons.add,
+              size: 35,
+            ),
           ),
         ],
       ),
-    */
     );
   }
 
