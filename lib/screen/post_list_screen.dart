@@ -21,21 +21,6 @@ class HomeScreen extends StatelessWidget {
     }
   }
 
-  void _dataFirestore() async {
-    final CollectionReference collectionReference =
-        FirebaseFirestore.instance.collection('posts');
-
-    try {
-      //final DocumentReference documentReference = await collectionReference.add({'title': 'TitrePost', 'description': "Ceci est la description"});
-      //debugPrint('Document added with id: ${documentReference.id}');
-
-      final ref = await collectionReference.get();
-      debugPrint('Collection data: ${ref.docs}');
-    } catch (error) {
-      debugPrint('Error writting in firestore: $error');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<PostsBloc>(context).add(GetAllPosts());
@@ -67,7 +52,7 @@ class HomeScreen extends StatelessWidget {
               if (state.posts.isEmpty) {
                 return const Center(
                   child: Text(
-                    "Il n'y a pas de posts\n Vous pouvez en ajouter",
+                    "Il n'y a pas de post",
                     textAlign: TextAlign.center,
                   ),
                 );
@@ -85,16 +70,10 @@ class HomeScreen extends StatelessWidget {
           }
         },
       ),
+      /*
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          FloatingActionButton(
-            onPressed: _dataFirestore,
-            child: const Icon(Icons.cloud),
-            backgroundColor: Colors.grey,
-            heroTag: 'cloudButton',
-          ),
-          /*
           FloatingActionButton(
             onPressed: _crash,
             tooltip: 'Crash',
@@ -102,9 +81,9 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: Colors.redAccent,
             heroTag: 'crashButton',
           ),
-           */
         ],
       ),
+    */
     );
   }
 

@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
               textTheme: const TextTheme(
                 bodySmall: TextStyle(
                   fontSize: 20,
-                  color: Colors.orange,
+                  color: Colors.blueGrey,
                 ),
               ),
             ),
