@@ -14,3 +14,11 @@ class AddPost extends PostsEvent {
     required this.post,
   });
 }
+
+class EditPost extends PostsEvent {
+  final Post post;
+
+  EditPost({
+    required this.post,
+  });
+}

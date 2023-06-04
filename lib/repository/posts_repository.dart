@@ -20,4 +20,8 @@ class PostsRepository {
   Future<String> addPost(Post post) {
     return postDataSource.addPost(post);
   }
+
+  Future<void> editPost(Post post) {
+    return postDataSource.editPost(post);
+  }
 }

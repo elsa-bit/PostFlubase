@@ -33,8 +33,9 @@ class PostAddScreen extends StatelessWidget {
           children: [
             TextField(
               controller: _titleController,
-              decoration: InputDecoration(
-                hintText: "Titre du post",
+              decoration: const InputDecoration(
+                hintText: "Titre",
+                labelText: "Titre du post",
                 hintStyle: TextStyle(
                   fontSize: 15,
                   color: Colors.black,
@@ -43,8 +44,9 @@ class PostAddScreen extends StatelessWidget {
             ),
             TextField(
               controller: _descriptionController,
-              decoration: InputDecoration(
-                hintText: "Description du post",
+              decoration: const InputDecoration(
+                hintText: "Description",
+                labelText: "Description du post",
                 hintStyle: TextStyle(
                   fontSize: 15,
                   color: Colors.black,
@@ -74,7 +76,7 @@ class PostAddScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.lightBlueAccent,
                         ),
-                        child: Text('Ajouter le post'),
+                        child: const Text('Ajouter le post'),
                       ),
                     );
                 }
@@ -99,9 +101,9 @@ class PostAddScreen extends StatelessWidget {
     var bloc = BlocProvider.of<PostsBloc>(context);
     if (_titleController.text != "" && _descriptionController.text != "") {
       final post = Post(
+        id: '',
         title: _titleController.text,
         description: _descriptionController.text,
-        id: '',
       );
       bloc.add(AddPost(post: post));
     } else {
