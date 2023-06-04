@@ -8,9 +8,9 @@ class PostsRepository {
     required this.postDataSource,
   });
 
-  Stream<List<Post>> getPosts() {
+  Stream<List<Post>> getAllPosts() {
     try {
-      final posts = postDataSource.getPosts();
+      final posts = postDataSource.getAllPosts();
       return posts;
     } catch (e) {
       rethrow;

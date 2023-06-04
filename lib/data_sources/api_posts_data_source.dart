@@ -7,7 +7,7 @@ class ApiPostsDataSource extends PostsDataSource {
       FirebaseFirestore.instance.collection('posts');
 
   @override
-  Stream<List<Post>> getPosts() {
+  Stream<List<Post>> getAllPosts() {
     return collectionReference.snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
         final data = doc.data() as Map<String, dynamic>;
@@ -29,8 +29,9 @@ class ApiPostsDataSource extends PostsDataSource {
   }
 
   @override
-  Future<void> editPost(Post post) async{
-    await collectionReference.doc(post.id).update({'title': post.title, 'description': post.description});
+  Future<void> editPost(Post post) async {
+    await collectionReference
+        .doc(post.id)
+        .update({'title': post.title, 'description': post.description});
   }
-
 }

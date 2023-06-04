@@ -16,7 +16,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
     on<GetAllPosts>((event, emit) async {
       try {
         emit(state.copyWith(status: PostsStatus.loading));
-        await for (var posts in repository.getPosts()) {
+        await for (var posts in repository.getAllPosts()) {
           emit(state.copyWith(posts: posts, status: PostsStatus.success));
         }
       } catch (error) {
@@ -30,7 +30,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
     on<AddPost>((event, emit) async {
       emit(state.copyWith(status: PostsStatus.loading));
       try {
-        final id = await repository.addPost(event.post);
+        await repository.addPost(event.post);
         emit(state.copyWith(status: PostsStatus.editSuccess));
       } catch (e) {
         emit(state.copyWith(error: e.toString(), status: PostsStatus.error));

@@ -34,23 +34,13 @@ class PostAddScreen extends StatelessWidget {
             TextField(
               controller: _titleController,
               decoration: const InputDecoration(
-                hintText: "Titre",
                 labelText: "Titre du post",
-                hintStyle: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                ),
               ),
             ),
             TextField(
               controller: _descriptionController,
               decoration: const InputDecoration(
-                hintText: "Description",
                 labelText: "Description du post",
-                hintStyle: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                ),
               ),
             ),
             const Spacer(),

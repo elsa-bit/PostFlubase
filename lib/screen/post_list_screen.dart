@@ -34,7 +34,9 @@ class HomeScreen extends StatelessWidget {
               );
             case PostsStatus.error:
               return Center(
-                child: Text(state.error),
+                child: Text(
+                  state.error,
+                ),
               );
             case PostsStatus.success:
             default:
@@ -42,7 +44,6 @@ class HomeScreen extends StatelessWidget {
                 return const Center(
                   child: Text(
                     "Il n'y a pas de post",
-                    textAlign: TextAlign.center,
                   ),
                 );
               }
