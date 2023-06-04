@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:app_post/models/post.dart';
 import 'package:app_post/repository/posts_repository.dart';
 import 'package:bloc/bloc.dart';
