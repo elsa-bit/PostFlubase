@@ -8,9 +8,9 @@ class PostsRepository {
     required this.postDataSource,
   });
 
-  Future<List<Post>> getPosts() async {
+  Stream<List<Post>> getPosts() {
     try {
-      final posts = await postDataSource.getPosts();
+      final posts = postDataSource.getPosts();
       return posts;
     } catch (e) {
       rethrow;

@@ -14,14 +14,16 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
 
   PostsBloc(this.repository) : super(PostsState()) {
     on<GetAllPosts>((event, emit) async {
-      emit(state.copyWith(status: PostsStatus.loading));
-
       try {
-        final posts = await repository.getPosts();
-        emit(state.copyWith(status: PostsStatus.success, posts: posts));
+        emit(state.copyWith(status: PostsStatus.loading));
+        await for (var posts in repository.getPosts()) {
+          emit(state.copyWith(posts: posts, status: PostsStatus.success));
+        }
       } catch (error) {
-        emit(
-            state.copyWith(status: PostsStatus.error, error: error.toString()));
+        emit(state.copyWith(
+          error: error.toString(),
+          status: PostsStatus.error,
+        ));
       }
     });
 

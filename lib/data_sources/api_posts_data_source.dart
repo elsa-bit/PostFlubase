@@ -14,20 +14,17 @@ class ApiPostsDataSource extends PostsDataSource {
   }
 
   @override
-  Future<List<Post>> getPosts() async {
+  Stream<List<Post>> getPosts() {
+    return collectionReference.snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
 
-    final response = await collectionReference.get();
-
-    final List<Post> posts = response.docs.map((doc) {
-      final data = doc.data() as Map<String, dynamic>;
-
-      return Post(
-        id: doc.id,
-        title: data['title'],
-        description: data['description'],
-      );
-    }).toList();
-
-    return posts;
+        return Post(
+          id: doc.id,
+          title: data['title'],
+          description: data['description'],
+        );
+      }).toList();
+    });
   }
 }
