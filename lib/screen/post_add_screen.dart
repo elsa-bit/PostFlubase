@@ -56,10 +56,11 @@ class PostAddScreen extends StatelessWidget {
             BlocConsumer<PostsBloc, PostsState>(
               listener: (context, state) {
                 if (state.status == PostsStatus.editSuccess) {
-                  _showSnackBar(context, 'Post ajouté', Colors.lightGreenAccent);
+                  _showSnackBar(context, 'Post ajouté', Colors.green);
                   Navigator.of(context).pop();
                 } else if (state.status == PostsStatus.error) {
-                  _showSnackBar(context, state.error ?? '', Colors.yellowAccent);
+                  _showSnackBar(
+                      context, state.error ?? '', Colors.yellowAccent);
                 }
               },
               builder: (context, state) {
@@ -67,12 +68,15 @@ class PostAddScreen extends StatelessWidget {
                   case PostsStatus.loading:
                     return const CircularProgressIndicator();
                   default:
-                    return ElevatedButton(
-                      onPressed: () => _onAddPost(),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.lightBlueAccent,
+                    return Align(
+                      alignment: Alignment.center,
+                      child: ElevatedButton(
+                        onPressed: () => _onAddPost(context),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.lightBlueAccent,
+                        ),
+                        child: Text('Ajouter le post'),
                       ),
-                      child: Text('Ajouter le post'),
                     );
                 }
               },
@@ -92,16 +96,18 @@ class PostAddScreen extends StatelessWidget {
     );
   }
 
-  void _onAddPost() async {
-    final CollectionReference collectionReference =
-        FirebaseFirestore.instance.collection('posts');
-    try {
-      await collectionReference.add({
-        'title': _titleController.text,
-        'description': _descriptionController.text
-      });
-    } catch (error) {
-      debugPrint('Error writting in firestore: $error');
+  void _onAddPost(BuildContext context) {
+    var bloc = BlocProvider.of<PostsBloc>(context);
+    if (_titleController.text != "" && _descriptionController.text != "") {
+      final post = Post(
+        title: _titleController.text,
+        description: _descriptionController.text,
+        id: '',
+      );
+      bloc.add(AddPost(post: post));
+    } else {
+      _showSnackBar(
+          context, "Vous devez remplir tous les champs", Colors.redAccent);
     }
   }
 }

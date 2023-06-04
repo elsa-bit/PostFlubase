@@ -17,7 +17,7 @@ class PostsRepository {
     }
   }
 
-  Future<String> addPost(String title, String description) {
-    return postDataSource.addPost(title, description);
+  Future<String> addPost(Post post) {
+    return postDataSource.addPost(post);
   }
 }

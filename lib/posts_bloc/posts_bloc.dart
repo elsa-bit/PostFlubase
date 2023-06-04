@@ -28,7 +28,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
     on<AddPost>((event, emit) async {
       emit(state.copyWith(status: PostsStatus.loading));
       try {
-        final id = await repository.addPost(event.);    //PROBLEME ICI
+        final id = await repository.addPost(event.post);
         emit(state.copyWith(status: PostsStatus.editSuccess));
       } catch (e) {
         emit(state.copyWith(error: e.toString(), status: PostsStatus.error));

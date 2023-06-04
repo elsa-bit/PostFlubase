@@ -4,10 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ApiPostsDataSource extends PostsDataSource {
   @override
-  Future<String> addPost(String title, String description) async {
+  Future<String> addPost(Post post) async {
     final reponse = await FirebaseFirestore.instance
         .collection('posts')
-        .add({'title': title, 'description': description});
+        .add({'title': post.title, 'description': post.description});
     return reponse.id;
   }
 

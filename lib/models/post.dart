@@ -20,11 +20,4 @@ class Post {
       description: description ?? this.description,
     );
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'title': title,
-      'description': description,
-    };
-  }
 }

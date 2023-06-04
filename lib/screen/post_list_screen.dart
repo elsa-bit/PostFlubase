@@ -94,7 +94,7 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: Colors.grey,
             heroTag: 'cloudButton',
           ),
-          SizedBox(height: 18),
+          /*
           FloatingActionButton(
             onPressed: _crash,
             tooltip: 'Crash',
@@ -102,6 +102,7 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: Colors.redAccent,
             heroTag: 'crashButton',
           ),
+           */
         ],
       ),
     );
